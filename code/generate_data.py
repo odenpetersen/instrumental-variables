@@ -10,10 +10,11 @@ def generate_data(n = 1000,
 
     #Equilibrium price using Newton's method
     price = np.zeros(n)
-    quantity_supplied, quantity_demanded = -np.inf, np.inf
-    while np.max(np.abs(quantity_supplied-quantity_demanded)) > 1e-4: #For linear quantity curves, only one step should be required
+    while True: #For linear quantity curves, only one step should be required.
         quantity_supplied = supply_base + supply_elasticity * price + supply_shocks + weather_shocks
         quantity_demanded = demand_base - demand_elasticity * price + demand_shocks
+        if np.max(np.abs(quantity_supplied-quantity_demanded)) <= 1e-4:
+            break
         price = price - (quantity_supplied - quantity_demanded) / (supply_elasticity + demand_elasticity)
 
     quantity = demand_elasticity * price + demand_shocks
