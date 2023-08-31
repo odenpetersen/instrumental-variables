@@ -17,5 +17,5 @@ def generate_data(n = 1000,
             break
         price = price - (quantity_supplied - quantity_demanded) / (supply_elasticity + demand_elasticity)
 
-    quantity = demand_elasticity * price + demand_shocks
+    quantity = (quantity_supplied+quantity_demanded)/2
     return price, quantity, weather_shocks
